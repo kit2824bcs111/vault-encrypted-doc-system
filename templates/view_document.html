@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}{{ doc['title'] }} — VAULT{% endblock %}
+
+{% block content %}
+<main>
+  <div class="page-header">
+    <h1>// {{ doc['title'] }}</h1>
+    <p>Document #{{ doc['id'] }} &nbsp;|&nbsp; Stored: {{ doc['created_at'][:16] }} &nbsp;|&nbsp; Decrypted in memory only</p>
+  </div>
+
+  <div style="margin-bottom:1rem; font-family:var(--mono); font-size:0.75rem; color:var(--green);">
+    ✅ DECRYPTION SUCCESSFUL — AES-256-GCM
+  </div>
+
+  <div class="doc-content-box">{{ content }}</div>
+
+  <div class="encrypted-preview">
+    <div class="label">⚠ RAW ENCRYPTED BLOB (what database actually stores):</div>
+    {{ doc['encrypted_content'] }}
+  </div>
+
+  <div style="display:flex; gap:1rem; margin-top:1.5rem;">
+    <a href="{{ url_for('dashboard') }}" class="btn btn-outline">[ ← BACK ]</a>
+    <form method="POST" action="{{ url_for('delete_document', doc_id=doc['id']) }}" onsubmit="return confirm('Delete this document permanently?')">
+      <button type="submit" class="btn btn-danger">[ 🗑 DELETE DOCUMENT ]</button>
+    </form>
+  </div>
+
+</main>
+{% endblock %}

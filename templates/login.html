@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}LOGIN — VAULT{% endblock %}
+
+{% block content %}
+<div class="auth-wrap">
+  <div class="auth-card">
+
+    <div class="auth-logo">🔐 VAULT</div>
+    <div class="auth-sub">// ENCRYPTED DOCUMENT SYSTEM //</div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul class="flash-list">
+          {% for category, message in messages %}
+            <li class="flash-{{ category }}">▶ {{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    <form method="POST" action="{{ url_for('login') }}">
+      <div class="form-group">
+        <label for="username">USERNAME</label>
+        <input type="text" id="username" name="username" autocomplete="off" required placeholder="enter username" />
+      </div>
+      <div class="form-group">
+        <label for="password">PASSWORD</label>
+        <input type="password" id="password" name="password" required placeholder="••••••••" />
+      </div>
+      <button type="submit" class="btn btn-primary">[ AUTHENTICATE ]</button>
+    </form>
+
+    <div class="auth-link">
+      No account? <a href="{{ url_for('register') }}">Create one here</a>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

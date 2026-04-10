@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}REGISTER — VAULT{% endblock %}
+
+{% block content %}
+<div class="auth-wrap">
+  <div class="auth-card">
+
+    <div class="auth-logo">🔐 VAULT</div>
+    <div class="auth-sub">// CREATE NEW ACCOUNT //</div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul class="flash-list">
+          {% for category, message in messages %}
+            <li class="flash-{{ category }}">▶ {{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    <form method="POST" action="{{ url_for('register') }}">
+      <div class="form-group">
+        <label for="username">USERNAME</label>
+        <input type="text" id="username" name="username" autocomplete="off" required placeholder="choose a username" />
+      </div>
+      <div class="form-group">
+        <label for="password">PASSWORD <span style="color:var(--muted)">(min. 6 chars)</span></label>
+        <input type="password" id="password" name="password" required placeholder="••••••••" />
+      </div>
+      <button type="submit" class="btn btn-primary">[ CREATE ACCOUNT ]</button>
+    </form>
+
+    <div class="auth-link">
+      Already have an account? <a href="{{ url_for('login') }}">Log in here</a>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

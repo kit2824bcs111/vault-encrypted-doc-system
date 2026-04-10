@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}DASHBOARD — VAULT{% endblock %}
+
+{% block content %}
+<main>
+  <div class="page-header">
+    <h1>// MY VAULT</h1>
+    <p>Logged in as: {{ username }} &nbsp;|&nbsp; All documents encrypted with AES-256-GCM</p>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-number">{{ documents|length }}</div>
+      <div class="stat-label">Documents</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number" style="color:var(--green)">AES</div>
+      <div class="stat-label">256-GCM</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number" style="color:var(--green); font-size:1.2rem">🔒 ON</div>
+      <div class="stat-label">Encryption</div>
+    </div>
+  </div>
+
+  <div class="top-bar">
+    <span style="font-family:var(--mono); font-size:0.8rem; color:var(--muted); letter-spacing:2px;">STORED DOCUMENTS</span>
+    <a href="{{ url_for('add_document') }}" class="btn btn-outline btn-sm">[ + ADD NEW ]</a>
+  </div>
+
+  {% if documents %}
+    <div class="doc-list">
+      {% for doc in documents %}
+      <div class="doc-item">
+        <div>
+          <a href="{{ url_for('view_document', doc_id=doc['id']) }}" class="doc-title">📄 {{ doc['title'] }}</a>
+          <div class="doc-meta">STORED: {{ doc['created_at'][:16] }} &nbsp;|&nbsp; ID: #{{ doc['id'] }}</div>
+        </div>
+        <div class="doc-actions">
+          <a href="{{ url_for('view_document', doc_id=doc['id']) }}" class="btn btn-outline btn-sm">[ VIEW ]</a>
+          <form method="POST" action="{{ url_for('delete_document', doc_id=doc['id']) }}" onsubmit="return confirm('Delete this document permanently?')">
+            <button type="submit" class="btn btn-danger">[ DEL ]</button>
+          </form>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="empty-state">
+      NO DOCUMENTS FOUND.<br><br>
+      <a href="{{ url_for('add_document') }}">[ + ADD YOUR FIRST DOCUMENT ]</a>
+    </div>
+  {% endif %}
+
+</main>
+{% endblock %}

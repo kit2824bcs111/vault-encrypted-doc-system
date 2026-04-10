@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}AUDIT LOG — VAULT{% endblock %}
+
+{% block content %}
+<main>
+  <div class="page-header">
+    <h1>// AUDIT LOG</h1>
+    <p>All actions performed on your account — last 100 entries</p>
+  </div>
+
+  {% if logs %}
+  <div style="overflow-x:auto;">
+    <table class="audit-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>TIMESTAMP</th>
+          <th>ACTION</th>
+          <th>DETAILS</th>
+          <th>IP ADDRESS</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for log in logs %}
+        <tr>
+          <td style="color:var(--muted)">{{ log['id'] }}</td>
+          <td>{{ log['timestamp'][:16] }}</td>
+          <td>
+            {% if log['action'] in ['LOGIN', 'REGISTER'] %}
+              <span class="badge badge-green">{{ log['action'] }}</span>
+            {% elif log['action'] == 'LOGOUT' %}
+              <span class="badge badge-muted">{{ log['action'] }}</span>
+            {% elif log['action'] == 'LOGIN_FAILED' %}
+              <span class="badge badge-red">{{ log['action'] }}</span>
+            {% elif log['action'] == 'DELETE_DOCUMENT' %}
+              <span class="badge badge-red">{{ log['action'] }}</span>
+            {% else %}
+              <span class="badge badge-amber">{{ log['action'] }}</span>
+            {% endif %}
+          </td>
+          <td style="color:var(--muted)">{{ log['details'] }}</td>
+          <td style="color:var(--muted)">{{ log['ip_address'] }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+    <div class="empty-state">NO AUDIT ENTRIES FOUND.</div>
+  {% endif %}
+
+</main>
+{% endblock %}

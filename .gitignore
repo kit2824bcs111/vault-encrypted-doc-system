@@ -1,0 +1,8 @@
+
+.env
+vault.db
+venv/
+__pycache__/
+*.pyc
+.vscode/
+.DS_Store
