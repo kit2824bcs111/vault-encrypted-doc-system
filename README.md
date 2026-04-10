@@ -1,4 +1,4 @@
-# 🔐 VAULT — Encrypted Document System
+# VAULT — Encrypted Document System
 
 A full-stack encrypted document storage system built with Python, Flask, and AES-256-GCM encryption.
 
@@ -16,14 +16,14 @@ A full-stack encrypted document storage system built with Python, Flask, and AES
 ---
 
 ## FEATURES
-- ✅ User registration & login
-- ✅ Bcrypt password hashing
-- ✅ AES-256-GCM encryption per document
-- ✅ Unique encryption key per user
-- ✅ View & decrypt documents
-- ✅ Delete documents
-- ✅ Audit log for all actions
-- ✅ Raw encrypted blob visible on document page
+-  User registration & login
+-  Bcrypt password hashing
+-  AES-256-GCM encryption per document
+-  Unique encryption key per user
+-  View & decrypt documents
+-  Delete documents
+-  Audit log for all actions
+-  Raw encrypted blob visible on document page
 
 ---
 
